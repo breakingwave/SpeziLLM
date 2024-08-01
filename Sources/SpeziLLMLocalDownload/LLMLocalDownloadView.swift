@@ -180,7 +180,7 @@ public struct LLMLocalDownloadView: View {
     ///   - action: The action that should be performed when pressing the primary button of the view.
     public init(
         downloadDescription: LocalizedStringResource,
-        llmDownloadUrl: URL = LLMLocalDownloadManager.LLMUrlDefaults.llama2ChatModelUrl,
+        llmDownloadUrl: URL = LLMLocalDownloadManager.LLMUrlDefaults.phi3ModelUrl,
         llmStorageUrl: URL = .cachesDirectory.appending(path: "llm.gguf"),
         action: @escaping () async throws -> Void
     ) {
@@ -204,7 +204,7 @@ public struct LLMLocalDownloadView: View {
     @_disfavoredOverload
     public init<S: StringProtocol>(
         downloadDescription: S,
-        llmDownloadUrl: URL = LLMLocalDownloadManager.LLMUrlDefaults.llama2ChatModelUrl,
+        llmDownloadUrl: URL = LLMLocalDownloadManager.LLMUrlDefaults.phi3ModelUrl,
         llmStorageUrl: URL = .cachesDirectory.appending(path: "llm.gguf"),
         action: @escaping () async throws -> Void
     ) {

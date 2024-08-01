@@ -45,6 +45,17 @@ extension LLMLocalDownloadManager {
             return url
         }
         
+        /// Phi-3 model with `Q4_K_M` quantization (~2GB)
+        public static var phi3ModelUrl: URL {
+            guard let url = URL(string: "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf/resolve/main/Phi-3-mini-4k-instruct-q4.gguf") else {
+                preconditionFailure("""
+                    SpeziLLM: Invalid LLMUrlDefaults LLM download URL.
+                """)
+            }
+            
+            return url
+        }
+        
         /// Phi-2 model with `Q5_K_M` quantization (~2GB)
         public static var phi2ModelUrl: URL {
             guard let url = URL(string: "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/phi-2.Q5_K_M.gguf") else {

@@ -168,6 +168,30 @@ extension LLMLocalSchema {
             return prompt
         }
         
+        /// Prompt formatting closure for the [Phi-3](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf) model
+        /// // - Important: System prompts are ignored as Phi3 doesn't support them
+        public static let phi3: (@Sendable (LLMContext) throws -> String) = { chat in
+            
+            var prompt: String = ""
+            
+            for contextEntity in chat {
+                if contextEntity.role == .user {
+                    prompt += "<|user|>\n\(contextEntity.content)<|end|>\n"
+                }
+                else if contextEntity.role == .assistant() {
+                    prompt += "<|assistant|>\n\(contextEntity.content)\n" // Designed to work when the LLM finishes the sentence naturally, not by the tokens limit
+                }
+                
+            }
+            
+            // If the last message is from the user, add the assistant prompt
+            if chat.last?.role == .user {
+                prompt += "<|assistant|>\n"
+            }
+                    
+            return prompt
+        }
+        
         /// Prompt formatting closure for the [Phi-2](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/) model
         public static let phi2: (@Sendable (LLMContext) throws -> String) = { chat in
             guard chat.first?.role == .system else {
